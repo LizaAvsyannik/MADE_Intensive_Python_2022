@@ -1,5 +1,5 @@
-def merge(seq1, seq2):
-    return list(set(seq1).intersection(set(seq2)))
+def merge(lst1, lst2):
+    return sorted(list(set(lst1).intersection(set(lst2))))
 
 
 if __name__ == "__main__":
@@ -21,9 +21,11 @@ if __name__ == "__main__":
     tp2 = (1, 1, 1, 2, 2, 2, 3, 3, 3)
     res = merge(tp1, tp2)
     assert res == [1, 2, 3]
+    print('Test3 - OK')
+
     lst1 = [1, 1, 2, 5, 7]
     lst2 = [3, 6, 8]
     res = merge(lst1, lst2)
     assert res == []
-    print('Test3 - OK')
+    print('Test4 - OK')
     
