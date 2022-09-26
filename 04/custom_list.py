@@ -81,4 +81,5 @@ class CustomList(list):
         return self.__sum >= other.sum
 
     def __str__(self):
+        self.update_sum()
         return f'{super().__str__()}, {self.__sum}'
