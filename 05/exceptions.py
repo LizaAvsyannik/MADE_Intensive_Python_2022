@@ -9,5 +9,5 @@ class NegativeIndexError(Exception):
 
 
 class OneIndexError(Exception):
-    """Raised when the cell is already taken"""
+    """Raised when only one index has been provided"""
     pass
