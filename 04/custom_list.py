@@ -1,3 +1,6 @@
+from itertools import zip_longest
+
+
 class CustomList(list):
     def __init__(self, *args):
         super().__init__(*args)
@@ -23,14 +26,7 @@ class CustomList(list):
         self.__sum = sum(self)
 
     def __add__(self, other):
-        min_length = min(len(self), len(other))
-        res = []
-        for i in range(min_length):
-            res.append(self[i] + other[i])
-        if min_length == len(self):
-            res.extend(other[min_length:])
-        else:
-            res.extend(self[min_length:])
+        res = [sum(el) for el in zip_longest(self, other, fillvalue=0)]
         return CustomList(res)
 
     def __sub__(self, other):
