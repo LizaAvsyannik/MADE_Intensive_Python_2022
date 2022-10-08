@@ -64,6 +64,5 @@ c_lst2.append(-5)
 assert c_lst2 >= c_lst1
 
 # str
-print('Method str:')
-print(c_lst1)
-print(c_lst2)
+assert str(c_lst1) == '[5, 1, 3, 7, -8, 2], 10'
+assert str(c_lst2) == '[1, 2, 7, 5, -5], 10'
