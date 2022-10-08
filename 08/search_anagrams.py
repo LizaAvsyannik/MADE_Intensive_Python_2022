@@ -13,6 +13,9 @@ def check_less(cnt_t, cnt_s):
 
 
 def find_anagrams(text: str, pattern: str) -> List[int]:
+    if not text or not pattern:
+        return []
+
     s = text.lower()
     p = pattern.lower()
     n = len(s)

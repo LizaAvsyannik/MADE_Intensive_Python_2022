@@ -16,6 +16,18 @@ class TestFindAnagrams(unittest.TestCase):
     def test3(self):
         self.assertEqual(find_anagrams('aaaaaaaaaaaaa', 'aaaaaaaaaa'), [0, 1, 2, 3])
 
+    def test4(self):
+        self.assertEqual(find_anagrams('abc', 'deb'), [])
+
+    def test5(self):
+        self.assertEqual(find_anagrams('', 'deb'), [])
+
+    def test6(self):
+        self.assertEqual(find_anagrams('abc', ''), [])
+
+    def test7(self):
+        self.assertEqual(find_anagrams('', ''), [])
+
 
 if __name__ == "__main__":
     unittest.main()
