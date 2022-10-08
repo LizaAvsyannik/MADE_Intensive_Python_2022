@@ -2,10 +2,6 @@ from itertools import zip_longest
 
 
 class CustomList(list):
-    def __init__(self, *args):
-        super().__init__(*args)
-        self.__sum = sum(self)
-
     @property
     def lst(self):
         return list(self)
@@ -13,17 +9,6 @@ class CustomList(list):
     @lst.setter
     def lst(self, val):
         self.__init__(val)
-
-    @property
-    def sum(self):
-        return self.__sum
-
-    @sum.setter
-    def sum(self, val):
-        raise AttributeError('Sum is read-only')
-
-    def update_sum(self):
-        self.__sum = sum(self)
 
     def __add__(self, other):
         res = [sum(el) for el in zip_longest(self, other, fillvalue=0)]
@@ -47,35 +32,22 @@ class CustomList(list):
         return self.__sub__(CustomList(other))
 
     def __lt__(self, other):
-        self.update_sum()
-        other.update_sum()
-        return self.__sum < other.sum
+        return sum(self) < sum(other)
 
     def __le__(self, other):
-        self.update_sum()
-        other.update_sum()
-        return self.__sum <= other.sum
+        return sum(self) <= sum(other)
 
     def __eq__(self, other):
-        self.update_sum()
-        other.update_sum()
-        return self.__sum == other.sum
+        return sum(self) == sum(other)
 
     def __ne__(self, other):
-        self.update_sum()
-        other.update_sum()
-        return self.__sum != other.sum
+        return sum(self) != sum(other)
 
     def __gt__(self, other):
-        self.update_sum()
-        other.update_sum()
-        return self.__sum > other.sum
+        return sum(self) > sum(other)
 
     def __ge__(self, other):
-        self.update_sum()
-        other.update_sum()
-        return self.__sum >= other.sum
+        return sum(self) >= sum(other)
 
     def __str__(self):
-        self.update_sum()
-        return f'{super().__str__()}, {self.__sum}'
+        return f'{super().__str__()}, {sum(self)}'
