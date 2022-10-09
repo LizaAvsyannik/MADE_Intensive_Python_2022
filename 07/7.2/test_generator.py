@@ -50,7 +50,7 @@ class TestIO(unittest.TestCase):
         self.assertEqual(filtered, ['ccc ddd', 'CCC ddd eee', 'EEE bbb aaa'])
 
     def test_generator_file_name(self):
-        gen = iter(FileFilteringGenerator('07/7.2/test.txt', ['aaa']))
+        gen = iter(FileFilteringGenerator('test.txt', ['aaa']))
 
         self.assertEqual(next(gen), 'aaa bbb')
         self.assertEqual(next(gen), 'bbb AAA')
