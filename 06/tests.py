@@ -2,42 +2,85 @@ import unittest
 
 from lru_cache import LRUCache
 
-# solution has passed LeetCodes's problem: https://leetcode.com/problems/lru-cache/
+# solution has passed LeetCodes's problem:
+# https://leetcode.com/problems/lru-cache/
 # submission: https://leetcode.com/submissions/detail/812586394/
 
 
 class TestLRUCache(unittest.TestCase):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def test1_example(self):
+        lru_cache = LRUCache(2)
 
-        self.scenarios = [{'methods': ["LRUCache", "put", "put", "get", "put", "get", "put", "get", "get", "get"],
-                           'inputs': [[2], [1, 1], [2, 2], [1], [3, 3], [2], [4, 4], [1], [3], [4]],
-                           'results': [1, -1, -1, 3, 4]},
-                          {'methods': ["LRUCache", "put", "put", "get", "put", "put", "get"],
-                           'inputs': [[2], [2, 1], [2, 2], [2], [1, 1], [4, 1], [2]],
-                           'results': [2, -1]}, 
-                          {'methods': ["LRUCache", "put", "put", "put",  "get", "put", "get", "put", "get", "get"],
-                           'inputs': [[3], [2, 1], [1, 1], [3, 3], [2], [1, 2], [2], [4, 4], [3], [1]],
-                           'results': [1, 1, -1, 2]}]
+        lru_cache.put("k1", "val1")
+        lru_cache.put("k2", "val2")
 
-    def test_cache(self):
+        self.assertEqual(lru_cache.get("k3"), None)
+        self.assertEqual(lru_cache.get("k2"), "val2")
+        self.assertEqual(lru_cache.get("k1"), "val1")
 
-        def test_scene(scene):
-            result = []
-            for i in range(len(scene['methods'])):
-                if scene['methods'][i] == 'LRUCache':
-                    capacity = scene['inputs'][i][0]
-                    lru_cache = LRUCache(capacity)
-                elif scene['methods'][i] == 'put':
-                    key, value = scene['inputs'][i][0], scene['inputs'][i][1]
-                    lru_cache.put(key, value)
-                else:
-                    key = scene['inputs'][i][0]
-                    result.append(lru_cache.get(key))
-            self.assertEqual(result, scene['results'])
+        lru_cache.put("k3", "val3")
 
-        for scene in self.scenarios:
-            test_scene(scene)
+        self.assertEqual(lru_cache.get("k3"), "val3")
+        self.assertEqual(lru_cache.get("k2"), None)
+        self.assertEqual(lru_cache.get("k1"), "val1")
+
+    def test2(self):
+        lru_cache = LRUCache(2)
+
+        lru_cache.put("k1", "val1")
+        lru_cache.put("k2", "val2")
+        self.assertEqual(lru_cache.get("k1"), "val1")
+
+        lru_cache.put("k3", "val3")
+        self.assertEqual(lru_cache.get("k2"), None)
+
+        lru_cache.put("k4", "val4")
+        self.assertEqual(lru_cache.get("k1"), None)
+        self.assertEqual(lru_cache.get("k3"), "val3")
+        self.assertEqual(lru_cache.get("k4"), "val4")
+
+    def test3_with_change_existing_key(self):
+        lru_cache = LRUCache(2)
+
+        lru_cache.put("k2", "val1")
+        lru_cache.put("k2", "val2")  # exists
+
+        self.assertEqual(lru_cache.get("k2"), "val2")
+
+        lru_cache.put("k1", "val1")
+        lru_cache.put("k4", "val1")
+
+        self.assertEqual(lru_cache.get("k2"), None)
+
+    def test4_with_change_existing_key(self):
+        lru_cache = LRUCache(3)
+
+        lru_cache.put("k2", "val1")
+        lru_cache.put("k1", "val1")
+        lru_cache.put("k3", "val3")
+
+        self.assertEqual(lru_cache.get("k2"), "val1")
+
+        lru_cache.put("k1", "val2")  # exists
+        self.assertEqual(lru_cache.get("k1"), "val2")
+        self.assertEqual(lru_cache.get("k2"), "val1")
+
+        lru_cache.put("k4", "val4")
+        self.assertEqual(lru_cache.get("k3"), None)
+        self.assertEqual(lru_cache.get("k1"), "val2")
+
+    def test5_one_capacity(self):
+        lru_cache = LRUCache(1)
+
+        lru_cache.put("k1", "val1")
+        lru_cache.put("k2", "val2")
+
+        self.assertEqual(lru_cache.get("k1"), None)
+        self.assertEqual(lru_cache.get("k2"), "val2")
+
+        lru_cache.put("k3", "val3")
+        self.assertEqual(lru_cache.get("k2"), None)
+        self.assertEqual(lru_cache.get("k3"), "val3")
 
 
 if __name__ == "__main__":

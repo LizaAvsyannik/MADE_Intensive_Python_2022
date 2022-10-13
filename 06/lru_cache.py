@@ -10,8 +10,7 @@ class LRUCache():
             self.__recents.pop(self.__recents.index(key))
             self.__recents.append(key)
             return self.__cache[key]
-        else:
-            return -1
+        return None
 
     def put(self, key, value):
         if key in self.__cache:
